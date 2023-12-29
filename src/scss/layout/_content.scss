@@ -1,0 +1,28 @@
+@use '../utils/colors'as c;
+
+.content {
+    margin-top: 1rem;
+    padding: 1rem;
+}
+
+.game-content {
+    margin-top: 1rem;
+    padding: 1rem;
+    background-color: c.$secondary;
+    border-top: 2px solid darkred;
+}
+
+.container {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 1rem;
+}
+
+.container-vertical {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 1rem;
+    flex-direction: column;
+}

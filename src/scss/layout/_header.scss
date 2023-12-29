@@ -1,0 +1,9 @@
+@use '../utils/colors' as c;
+
+.header {
+    border-top: 2px solid darkred;
+    margin: 1rem 0 1rem 0;
+    background-color: c.$secondary;
+    padding: 1rem;
+
+}
