@@ -1,27 +1,24 @@
 <script lang="ts" setup>
-import { useAttrs } from 'vue'
-import { Label, type LabelProps } from 'radix-vue'
+import type { LabelProps } from 'reka-ui'
+import type { HTMLAttributes } from 'vue'
+import { cn } from '@/lib/utils'
+import { Label } from '@/components/ui/label'
 import { useFormField } from './useFormField'
-import { cn } from '@/utils/'
 
-defineOptions({
-  inheritAttrs: false,
-})
-const props = defineProps<LabelProps>()
+const props = defineProps<LabelProps & { class?: HTMLAttributes['class'] }>()
 
 const { error, formItemId } = useFormField()
-const { class: className, ...rest } = useAttrs()
 </script>
 
 <template>
   <Label
+    data-slot="form-label"
+    :data-error="!!error"
     :class="cn(
-      'block text-sm tracking-tight font-medium text-slate-950 text-left dark:text-slate-50',
-      error && 'text-red-500 dark:text-red-900',
-      className ?? '',
+      'data-[error=true]:text-destructive-foreground',
+      props.class,
     )"
     :for="formItemId"
-    v-bind="rest"
   >
     <slot />
   </Label>

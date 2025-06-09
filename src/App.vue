@@ -8,16 +8,12 @@
       <LandingPage></LandingPage>
     </div>
   </div>
-  <footer id="footer">
-    <RouterLink class="nav-link" to="/impressum">Impressum</RouterLink>
-    <RouterLink class="nav-link" to="/privacy">Datenschutz</RouterLink>
-  </footer>
 </template>
 
 <script setup lang="ts">
 import LandingPage from '@/views/LandingPage.vue'
 import Main from '@/views/Game/Main.vue'
 import { useAuthStore } from '@/stores/auth'
-import { Toaster } from '@/components/ui'
+import { Toaster } from '@/components/ui/sonner'
 const authStore = useAuthStore()
 </script>

@@ -1,8 +1,7 @@
-import { defineStore } from 'pinia';
-import axios from 'axios';
+import { defineStore } from 'pinia'
+import axios from 'axios'
 
-export const useAuthStore = defineStore({
-  id: 'auth',
+export const useAuthStore = defineStore('auth',{
   state: () => ({
     returnUrl: null,
     isLoggedIn: localStorage.getItem('isLoggedIn') === 'true' || false,
@@ -15,13 +14,13 @@ export const useAuthStore = defineStore({
           `${baseUrl}/auth/login`,
           {
             email: email,
-            password: password,
+            password: password
           },
           {
             withCredentials: true,
             headers: {
-              Authorization: true,
-            },
+              Authorization: true
+            }
           }
         )
         .then((res) => {
@@ -30,8 +29,8 @@ export const useAuthStore = defineStore({
           console.log(res);
         })
         .catch((error) => {
-          console.error(error);
-        });
+          console.error(error)
+        })
     },
     async logout() {
       const baseUrl = import.meta.env.VITE_VDGO_BASE_URL;
@@ -49,8 +48,8 @@ export const useAuthStore = defineStore({
           console.log(res);
         })
         .catch((error) => {
-          console.error(error);
-        });
-    },
-  },
-});
+          console.error(error)
+        })
+    }
+  }
+})

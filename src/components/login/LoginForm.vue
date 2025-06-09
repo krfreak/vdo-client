@@ -36,17 +36,10 @@ import { toTypedSchema } from '@vee-validate/zod'
 import * as z from 'zod'
 import { useForm } from 'vee-validate'
 
-import {
-  Card,
-  Button,
-  Input,
-  FormField,
-  FormItem,
-  FormLabel,
-  FormControl,
-  FormMessage,
-  useToast
-} from '@/components/ui'
+import { Card } from '@/components/ui/card'
+import { Button } from '@/components/ui/button'
+import { Input } from '@/components/ui/input'
+import { FormField, FormItem, FormLabel, FormControl, FormMessage } from '@/components/ui/form'
 
 const formSchema = toTypedSchema(
   z.object({
@@ -58,15 +51,13 @@ const formSchema = toTypedSchema(
 const { handleSubmit } = useForm({
   validationSchema: formSchema
 })
-
-const { toast } = useToast()
+import { toast } from 'vue-sonner'
 
 const onSubmit = handleSubmit(async (values) => {
   await authStore.login(values.email, values.password)
   if (authStore.isLoggedIn) {
     await userStore.getMe()
-    toast({
-      title: 'Erfolgreich eingeloggt!',
+    toast('Erfolgreich eingeloggt!', {
       description: 'blablabla'
     })
     router.push('/main')
