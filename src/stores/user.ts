@@ -2,18 +2,17 @@ import axios from 'axios';
 import { defineStore } from 'pinia';
 import { useAuthStore } from './auth';
 
-export const useUserStore = defineStore({
-  id: 'user',
+export const useUserStore = defineStore('user', {
   state: () => ({
     me: Number,
   }),
   actions: {
     isAuthenticated() {
-      return this.me === typeof Number;
+      return typeof this.me === 'number' && !isNaN(this.me);
     },
     async getMe() {
       const authStore = useAuthStore();
-      const me = await axios
+      await axios
         .get('http://localhost:3000/users/me', {
           withCredentials: true,
           headers: {
@@ -21,7 +20,7 @@ export const useUserStore = defineStore({
           },
         })
         .then((res) => {
-          this.me = res['id'];
+          this.me = res.data['id'];
           console.log(res);
         })
         .catch((error) => {

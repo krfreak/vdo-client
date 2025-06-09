@@ -1,7 +1,7 @@
 <template>
   <div class="game-content">
     <div class="container">
-      <img src="images/races/elras/units/skelett.png" />
+      <img src="/images/races/elras/units/skelett.png" />
       <strong>Hier Meister, eure Steuereinnahmen!</strong>
     </div>
     <div class="container-vertical">

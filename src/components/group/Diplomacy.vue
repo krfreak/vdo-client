@@ -9,22 +9,22 @@
       </tr>
     </thead>
     <tbody>
-      <tr v-for="nation in diplomacy" :key="nation.id">
-        <td>{{ nation.name  }}</td>
-        <td>{{ nation.status  }}</td>
-        <td>{{ nation.ours }}</td>
-        <td>{{ nation.theirs }}</td>
+      <tr v-for="group in diplomacy" :key="group.id">
+        <td>{{ group.name  }}</td>
+        <td>{{ group.status  }}</td>
+        <td>{{ group.ours }}</td>
+        <td>{{ group.theirs }}</td>
       </tr>
     </tbody>
   </table>
 </template>
 <script setup lang="ts">
 import type { PropType } from "vue";
-import type { NationDiplomacy } from "./typings";
+import type { GroupDiplomacy } from "./typings";
 
 const props = defineProps({
   diplomacy: {
-    type: Array as PropType<NationDiplomacy[]>,
+    type: Array as PropType<GroupDiplomacy[]>,
     default: () => [],
   },
 });

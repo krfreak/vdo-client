@@ -1,10 +1,10 @@
-export interface Nation {
+export interface Group {
   id: number;
   name: string;
-  diplomacy: NationDiplomacy[];
+  diplomacy: GroupDiplomacy[];
 }
 
-export interface NationDiplomacy {
+export interface GroupDiplomacy {
   id: number;
   ours: DiplomacyStance;
   theirs: DiplomacyStance;
