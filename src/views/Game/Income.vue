@@ -11,6 +11,6 @@
   </div>
 </template>
 <script setup lang="ts">
-import IncomeTable from '../../components/income/IncomeTable.vue';
-import IncomeUnitsTable from '../../components/income/IncomeUnitsTable.vue';
+import IncomeTable from '@/components/income/IncomeTable.vue';
+import IncomeUnitsTable from '@/components/income/IncomeUnitsTable.vue';
 </script>

@@ -1,6 +1,6 @@
 <template>
   <header>
-    <NavigationTopBar />
+    <NavigationSidebar />
   </header>
   <div class="main-content">
     <div class="header">
@@ -14,8 +14,8 @@
 </template>
 <script setup lang="ts">
 import { RouterView } from 'vue-router'
-import NavigationTopBar from '../../components/navigation/NavigationTopBar.vue'
-import ResourceHeader from '../../components/header/ResourceHeader.vue'
+import NavigationSidebar from '@/components/navigation/NavigationSidebar.vue'
+import ResourceHeader from '@/components/header/ResourceHeader.vue'
 </script>
 
 <style></style>

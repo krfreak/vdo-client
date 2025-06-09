@@ -1,5 +1,5 @@
 import { createRouter, createWebHistory } from 'vue-router'
-import LandingPage from '../views/LandingPage.vue'
+import LandingPage from '@/views/LandingPage.vue'
 import { useAuthStore } from '@/stores/auth'
 
 const router = createRouter({
@@ -134,15 +134,15 @@ const router = createRouter({
   ]
 })
 
-router.beforeEach(async (to) => {
-  const publicPages = ['/']
-  const authRequired = !publicPages.includes(to.path)
-  const authStore = useAuthStore()
-  if (authRequired && !authStore.token) {
-    return {
-      path: '/'
-    }
-  }
-})
+// router.beforeEach(async (to) => {
+//   const publicPages = ['/']
+//   const authRequired = !publicPages.includes(to.path)
+//   const authStore = useAuthStore()
+//   if (authRequired && !authStore.token) {
+//     return {
+//       path: '/'
+//     }
+//   }
+// })
 
 export default router
