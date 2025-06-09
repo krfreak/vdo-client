@@ -1,11 +1,11 @@
 <template>
-  <div class="container">
-    <div class="event-list">
+  <div class="container grid grid-cols-3 gap-20">
+    <div class="grid grid-cols-3 gap-4">
       <p>
         {{ events }}
       </p>
     </div>
-    <div class="stats-list">
+    <div class="grid grid-cols-1 gap-2">
       <p>Burgen: {{ resourceData?.villages || randomInt(0, 12345) }}</p>
       <p>Bevölkerung: {{ resourceData?.population || randomInt(0, 12345) }}</p>
       <p>
@@ -14,7 +14,7 @@
         {{ resourceData?.tickTime || randomInt(0, 12345) }}
       </p>
     </div>
-    <div class="resource-list">
+    <div class="grid grid-cols-1 gap-2">
       <p>Filar: {{ resourceData?.filar || randomInt(0, 12345) }}</p>
       <p>
         Seelen:
@@ -29,19 +29,19 @@
   </div>
 </template>
 <script setup lang="ts">
-import type { PropType } from "vue";
-import type { Resource, GameEvent } from "./typings";
+import type { PropType } from 'vue'
+import type { Resource, GameEvent } from './typings'
 
 defineProps({
   resourceData: {
-    type: Object as PropType<Resource>,
+    type: Object as PropType<Resource>
   },
   events: {
-    type: Object as PropType<GameEvent>,
-  },
-});
+    type: Object as PropType<GameEvent>
+  }
+})
 
 function randomInt(min: number, max: number) {
-  return Math.floor(Math.random() * (max - min + 1)) + min;
+  return Math.floor(Math.random() * (max - min + 1)) + min
 }
 </script>

@@ -1,7 +1,7 @@
 <template>
   <SidebarProvider class="min-h-full">
     <NavigationSidebar />
-    <main class="p-3">
+    <main class="p-3 w-full">
       <ResourceHeader />
       <RouterView />
     </main>
