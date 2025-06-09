@@ -4,7 +4,7 @@ import axios from 'axios'
 export const useAuthStore = defineStore('auth',{
   state: () => ({
     returnUrl: null,
-    isLoggedIn: true
+    isLoggedIn: localStorage.getItem('isLoggedIn') === 'true' || false,
   }),
   actions: {
     async login(email: string, password: string) {
