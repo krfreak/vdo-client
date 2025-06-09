@@ -4,12 +4,12 @@ import axios from 'axios'
 export const useAuthStore = defineStore('auth',{
   state: () => ({
     returnUrl: null,
-    isLoggedIn: localStorage.getItem('isLoggedIn') === 'true' || false,
+    isLoggedIn: true
   }),
   actions: {
     async login(email: string, password: string) {
       const baseUrl = import.meta.env.VITE_VDGO_BASE_URL;
-      const token = await axios
+      await axios
         .post(
           `${baseUrl}/auth/login`,
           {
