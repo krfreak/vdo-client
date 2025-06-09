@@ -1,21 +1,17 @@
 <template>
-  <header>
+  <SidebarProvider class="min-h-full">
     <NavigationSidebar />
-  </header>
-  <div class="main-content">
-    <div class="header">
+    <main class="p-3">
       <ResourceHeader />
-    </div>
-    <div class="content">
       <RouterView />
-    </div>
-    <footer></footer>
-  </div>
+    </main>
+  </SidebarProvider>
 </template>
 <script setup lang="ts">
 import { RouterView } from 'vue-router'
-import NavigationSidebar from '@/components/navigation/NavigationSidebar.vue'
 import ResourceHeader from '@/components/header/ResourceHeader.vue'
+import { SidebarProvider } from '@/components/ui/sidebar'
+import NavigationSidebar from '@/components/navigation/NavigationSidebar.vue'
 </script>
 
 <style></style>

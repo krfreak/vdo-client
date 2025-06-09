@@ -1,109 +1,155 @@
 <template>
-  <aside v-if="authStore.token" class="menu m-2">
-    <p class="menu-label">Allgemeines</p>
-    <ul class="menu-list">
-      <li>
-        <RouterLink class="nav-link" to="/events">Ereignisse</RouterLink>
-      </li>
-      <li>
-        <RouterLink class="nav-link" to="/income">Einkommen</RouterLink>
-      </li>
-    </ul>
-    <RouterLink class="nav-link" to="/castle">Schloss</RouterLink>
-
-    <p class="menu-label">Nation</p>
-    <ul class="menu-list">
-      <li>
-        <RouterLink class="nav-link" to="/nation">Übersicht</RouterLink>
-      </li>
-      <li>
-        <RouterLink class="nav-link" to="/nationforum">Nationsforum</RouterLink>
-      </li>
-      <li>
-        <RouterLink class="nav-link" to="/supplies">Hilfslieferungen</RouterLink>
-      </li>
-      <li>
-        <RouterLink class="nav-link" to="/diplomacy">Diplomatie</RouterLink>
-      </li>
-      <li>
-        <RouterLink class="nav-link" to="/management">Management</RouterLink>
-      </li>
-    </ul>
-    <p class="menu-label">Truppen</p>
-    <ul class="menu-list">
-      <li>
-        <RouterLink class="nav-link" to="/recruiting">Einheiten</RouterLink>
-      </li>
-      <li>
-        <RouterLink class="nav-link" to="/hero">Held</RouterLink>
-      </li>
-      <li>
-        <RouterLink class="nav-link" to="/armies">Armeen</RouterLink>
-      </li>
-    </ul>
-
-    <RouterLink class="nav-link" to="/map">Landkarte</RouterLink>
-    <br />
-    <div class="searchbar">
-      <form @submit.prevent="" class="w-1/6 space-y-1">
-        <FormField v-slot="{ componentField }" name="search">
-          <FormItem>
-            <FormLabel>Suche</FormLabel>
-            <FormControl>
-              <Input type="text" class="w-5/6" placeholder="..." v-bind="componentField" /><Button
-                class="button w-1/6"
-                type="submit"
-                >OK</Button
-              >
-            </FormControl>
-            <FormMessage />
-          </FormItem>
-        </FormField>
-      </form>
-      <br />
-    </div>
-
-    <RouterLink class="nav-link" to="/rankings">Rangliste</RouterLink>
-
-    <RouterLink class="nav-link" to="/messaging">Briefe</RouterLink>
-
-    <RouterLink class="nav-link" to="/forum">Forum</RouterLink>
-    <br />
-    <RouterLink class="nav-link" to="/logout">Logout</RouterLink>
-    <div class="sidebar-footer">
-      <RouterLink class="nav-link" to="/impressum">Impressum</RouterLink>
-      <RouterLink class="nav-link" to="/privacy">Datenschutz</RouterLink>
-    </div>
-  </aside>
-  <aside v-if="!authStore.token" class="menu">
-    <p class="menu-label"></p>
-    <RouterLink class="nav-link" to="/login">Login</RouterLink>
-
-    <div class="sidebar-footer">
-      <RouterLink class="nav-link" to="/rankings">Rangliste</RouterLink>
-      <RouterLink class="nav-link" to="/messaging">Briefe</RouterLink>
-
-      <RouterLink class="nav-link" to="/forum">Forum</RouterLink>
-      <br />
-      <RouterLink class="nav-link" to="/impressum">Impressum</RouterLink>
-      <RouterLink class="nav-link" to="/privacy">Datenschutz</RouterLink>
-    </div>
-  </aside>
+  <Sidebar collapsible="none" variant="sidebar" class="min-h-screen">
+    <SidebarHeader>
+      <div class="flex items-center justify-between">
+        <h2 class="text-lg font-semibold">Navigation</h2>
+      </div>
+    </SidebarHeader>
+    <SidebarContent>
+      <SidebarGroup>
+        <SidebarGroupLabel>Allgemeines</SidebarGroupLabel>
+        <SidebarGroupContent>
+          <SidebarMenu>
+            <SidebarMenuButton as-child>
+              <RouterLink class="nav-link" to="/events">Ereignisse</RouterLink>
+            </SidebarMenuButton>
+            <SidebarMenuButton as-child>
+              <RouterLink class="nav-link" to="/income">Einkommen</RouterLink>
+            </SidebarMenuButton>
+          </SidebarMenu>
+        </SidebarGroupContent>
+      </SidebarGroup>
+      <SidebarGroup>
+        <SidebarGroupLabel>Nation</SidebarGroupLabel>
+        <SidebarGroupContent>
+          <SidebarMenu>
+            <SidebarMenuButton as-child>
+              <RouterLink class="nav-link" to="/nation">Übersicht</RouterLink>
+            </SidebarMenuButton>
+            <SidebarMenuButton as-child>
+              <RouterLink class="nav-link" to="/nationforum">Nationsforum</RouterLink>
+            </SidebarMenuButton>
+            <SidebarMenuButton as-child>
+              <RouterLink class="nav-link" to="/supplies">Hilfslieferungen</RouterLink>
+            </SidebarMenuButton>
+            <SidebarMenuButton as-child>
+              <RouterLink class="nav-link" to="/diplomacy">Diplomatie</RouterLink>
+            </SidebarMenuButton>
+            <SidebarMenuButton as-child>
+              <RouterLink class="nav-link" to="/management">Management</RouterLink>
+            </SidebarMenuButton>
+          </SidebarMenu>
+        </SidebarGroupContent>
+      </SidebarGroup>
+      <SidebarGroup>
+        <SidebarGroupLabel>Truppen</SidebarGroupLabel>
+        <SidebarGroupContent>
+          <SidebarMenu>
+            <SidebarMenuButton as-child>
+              <RouterLink class="nav-link" to="/recruiting">Einheiten</RouterLink>
+            </SidebarMenuButton>
+            <SidebarMenuButton as-child>
+              <RouterLink class="nav-link" to="/hero">Held</RouterLink>
+            </SidebarMenuButton>
+            <SidebarMenuButton as-child>
+              <RouterLink class="nav-link" to="/armies">Armeen</RouterLink>
+            </SidebarMenuButton>
+          </SidebarMenu>
+        </SidebarGroupContent>
+      </SidebarGroup>
+      <SidebarGroup>
+        <SidebarGroupContent>
+          <SidebarMenu>
+            <SidebarMenuButton as-child>
+              <RouterLink class="nav-link" to="/map">Landkarte</RouterLink>
+            </SidebarMenuButton>
+          </SidebarMenu>
+        </SidebarGroupContent>
+      </SidebarGroup>
+      <SidebarGroup>
+        <SidebarGroupContent>
+          <form @submit.prevent="" class="space-y-1">
+            <FormField v-slot="{ componentField }" name="search">
+              <FormItem class="grid grid-cols-6 gap-2 items-end">
+                <FormControl>
+                  <div class="col-span-5">
+                    <Label for="searchbox">Suche</Label>
+                    <Input
+                      type="text"
+                      id="searchbox"
+                      class=""
+                      placeholder="..."
+                      v-bind="componentField"
+                    />
+                  </div>
+                  <Button class="button col-span-1" type="submit">OK</Button>
+                </FormControl>
+              </FormItem>
+            </FormField>
+          </form>
+        </SidebarGroupContent>
+      </SidebarGroup>
+      <SidebarGroup>
+        <SidebarGroupContent>
+          <SidebarMenu>
+            <SidebarMenuButton as-child>
+              <RouterLink class="nav-link" to="/rankings">Rangliste</RouterLink>
+            </SidebarMenuButton>
+            <SidebarMenuButton as-child>
+              <RouterLink class="nav-link" to="/messaging">Briefe</RouterLink>
+            </SidebarMenuButton>
+            <SidebarMenuButton as-child>
+              <RouterLink class="nav-link" to="/forum">Forum</RouterLink>
+            </SidebarMenuButton>
+          </SidebarMenu>
+        </SidebarGroupContent>
+      </SidebarGroup>
+      <SidebarGroup>
+        <SidebarGroupContent>
+          <SidebarMenu>
+            <SidebarMenuButton as-child>
+              <RouterLink class="nav-link" to="/logout">Logout</RouterLink>
+            </SidebarMenuButton>
+          </SidebarMenu>
+        </SidebarGroupContent>
+      </SidebarGroup>
+    </SidebarContent>
+    <SidebarFooter>
+      <SidebarGroup>
+        <SidebarGroupContent>
+          <SidebarMenu>
+            <SidebarMenuButton as-child>
+              <RouterLink class="nav-link" to="/impressum">Impressum</RouterLink>
+            </SidebarMenuButton>
+            <SidebarMenuButton as-child>
+              <RouterLink class="nav-link" to="/privacy">Datenschutz</RouterLink>
+            </SidebarMenuButton>
+          </SidebarMenu>
+        </SidebarGroupContent>
+      </SidebarGroup>
+    </SidebarFooter>
+  </Sidebar>
 </template>
 
 <script setup lang="ts">
 import { computed, ref } from 'vue'
-import { useAuthStore } from '../../stores/auth'
+import { useAuthStore } from '@/stores/auth'
+import { RouterLink } from 'vue-router'
+import { FormField, FormItem, FormLabel, FormControl, FormMessage } from '@/components/ui/form'
+import { Input } from '@/components/ui/input'
+import { Button } from '@/components/ui/button'
 import {
-  Button,
-  Input,
-  FormField,
-  FormItem,
-  FormLabel,
-  FormControl,
-  FormMessage,
-  useToast
-} from '@/components/ui'
+  Sidebar,
+  SidebarContent,
+  SidebarFooter,
+  SidebarGroupContent,
+  SidebarMenuButton,
+  SidebarGroup,
+  SidebarHeader
+} from '@/components/ui/sidebar'
+import SidebarGroupLabel from '../ui/sidebar/SidebarGroupLabel.vue'
+import SidebarMenu from '../ui/sidebar/SidebarMenu.vue'
+
 const authStore = useAuthStore()
 const unfoldable = ref(true)
 const visible = ref(true)
