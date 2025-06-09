@@ -1,5 +1,5 @@
 <template>
-  <aside v-if="authStore.token" class="menu m-2">
+  <aside v-if="authStore.isLoggedIn" class="menu m-2">
     <p class="menu-label">Allgemeines</p>
     <ul class="menu-list">
       <li>
@@ -75,7 +75,7 @@
       <RouterLink class="nav-link" to="/privacy">Datenschutz</RouterLink>
     </div>
   </aside>
-  <aside v-if="!authStore.token" class="menu">
+  <aside v-if="!authStore.isLoggedIn" class="menu">
     <p class="menu-label"></p>
     <RouterLink class="nav-link" to="/login">Login</RouterLink>
 

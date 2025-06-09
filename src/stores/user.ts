@@ -1,32 +1,27 @@
 import axios from 'axios';
 import { defineStore } from 'pinia';
-import { useAuthStore } from './auth';
 
 export const useUserStore = defineStore({
   id: 'user',
   state: () => ({
-    me: Number,
+    me: null,
   }),
   actions: {
-    isAuthenticated() {
-      return this.me === typeof Number;
-    },
     async getMe() {
-      const authStore = useAuthStore();
-      const me = await axios
-        .get('http://localhost:3000/users/me', {
+      const baseUrl = import.meta.env.VITE_VDGO_BASE_URL;
+      await axios
+      .get(`${baseUrl}/users/me`, 
+        {
           withCredentials: true,
-          headers: {
-            Authorization: `Bearer ${authStore.token}`,
-          },
-        })
-        .then((res) => {
-          this.me = res['id'];
-          console.log(res);
-        })
-        .catch((error) => {
-          console.error(error);
-        });
+        }
+      )
+      .then((res) => {
+        this.me = res.data.id;
+        console.log(res);
+      })
+      .catch((error) => {
+        console.error(error);
+      });
     },
   },
 });

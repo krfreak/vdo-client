@@ -63,7 +63,7 @@ const { toast } = useToast()
 
 const onSubmit = handleSubmit(async (values) => {
   await authStore.login(values.email, values.password)
-  if (authStore.token) {
+  if (authStore.isLoggedIn) {
     await userStore.getMe()
     toast({
       title: 'Erfolgreich eingeloggt!',

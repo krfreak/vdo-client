@@ -138,7 +138,7 @@ router.beforeEach(async (to) => {
   const publicPages = ['/']
   const authRequired = !publicPages.includes(to.path)
   const authStore = useAuthStore()
-  if (authRequired && !authStore.token) {
+  if (authRequired && !authStore.isLoggedIn) {
     return {
       path: '/'
     }

@@ -4,15 +4,15 @@ import axios from 'axios';
 export const useAuthStore = defineStore({
   id: 'auth',
   state: () => ({
-    token: null,
     returnUrl: null,
-    isLoggedIn: false,
+    isLoggedIn: localStorage.getItem('isLoggedIn') === 'true' || false,
   }),
   actions: {
     async login(email: string, password: string) {
+      const baseUrl = import.meta.env.VITE_VDGO_BASE_URL;
       const token = await axios
         .post(
-          'http://localhost:3000/auth/login',
+          `${baseUrl}/auth/login`,
           {
             email: email,
             password: password,
@@ -25,7 +25,8 @@ export const useAuthStore = defineStore({
           }
         )
         .then((res) => {
-          this.token = res.data['accessToken'];
+          localStorage.setItem('isLoggedIn', 'true');
+          this.isLoggedIn = true;
           console.log(res);
         })
         .catch((error) => {
@@ -33,9 +34,18 @@ export const useAuthStore = defineStore({
         });
     },
     async logout() {
+      const baseUrl = import.meta.env.VITE_VDGO_BASE_URL;
       await axios
-        .delete('http://localhost:3000/auth/logout', {})
+        .post(`${baseUrl}/auth/logout`, 
+          {},
+          {
+            withCredentials: true,
+          }
+        )
         .then((res) => {
+          localStorage.removeItem('isLoggedIn');
+          this.isLoggedIn = false;
+      
           console.log(res);
         })
         .catch((error) => {
