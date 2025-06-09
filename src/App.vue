@@ -1,5 +1,5 @@
 <template>
-  <div v-if="authStore.isLoggedIn" class="main-grid">
+  <div v-if="authStore.isLoggedIn">
     <Main></Main>
     <Toaster></Toaster>
   </div>
