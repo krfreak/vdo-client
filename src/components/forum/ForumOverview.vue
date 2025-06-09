@@ -1,37 +1,63 @@
 <template>
   <div class="container">
-    <div>Breadcrumbs</div>
+    <Breadcrumb>
+      <BreadcrumbList>
+        <BreadcrumbItem>
+          <BreadcrumbLink href="/forum">Startseite</BreadcrumbLink>
+        </BreadcrumbItem>
+        <BreadcrumbItem>
+          <BreadcrumbPage>Forum</BreadcrumbPage>
+        </BreadcrumbItem>
+        <BreadcrumbSeparator>/</BreadcrumbSeparator>
+      </BreadcrumbList>
+    </Breadcrumb>
     <div class="forum-overview">
-      <table>
-        <thead>
-          <tr>
-            <th>Foren</th>
-            <th>Themen</th>
-            <th>Letzter Beitrag</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr v-for="forum in forums" :key="forum.id">
-            <td>
+      <Table>
+        <TableHead>
+          <TableRow>
+            <TableHeader>Foren</TableHeader>
+            <TableHeader>Themen</TableHeader>
+            <TableHeader>Letzter Beitrag</TableHeader>
+          </TableRow>
+        </TableHead>
+        <TableBody>
+          <TableRow v-for="forum in forums" :key="forum.id">
+            <TableCell>
               <a :href="`/viewforum/${forum.id}`">{{ forum.name }}</a>
-            </td>
-            <td>{{ forum.topics }}</td>
-            <td>{{ forum.lastEntry }}</td>
-          </tr>
-        </tbody>
-      </table>
+            </TableCell>
+            <TableCell>{{ forum.topics }}</TableCell>
+            <TableCell>{{ forum.lastEntry }}</TableCell>
+          </TableRow>
+        </TableBody>
+      </Table>
       <a :href="`/viewguide/forum`">Forum Hilfe</a>
     </div>
   </div>
 </template>
 <script setup lang="ts">
-import type { PropType } from "vue";
-import type { Forum } from "./typings";
-
+import type { PropType } from 'vue'
+import type { Forum } from './typings'
+import {
+  Breadcrumb,
+  BreadcrumbItem,
+  BreadcrumbLink,
+  BreadcrumbList,
+  BreadcrumbPage,
+  BreadcrumbSeparator
+} from '@/components/ui/breadcrumb'
+import {
+  Table,
+  TableBody,
+  TableCaption,
+  TableCell,
+  TableHead,
+  TableHeader,
+  TableRow
+} from '@/components/ui/table'
 const props = defineProps({
   forums: {
     type: Array as PropType<Forum[]>,
-    default: () => [],
-  },
-});
+    default: () => []
+  }
+})
 </script>
