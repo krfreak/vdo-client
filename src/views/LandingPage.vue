@@ -1,7 +1,7 @@
 <template>
   <div class="container">
     <img src="/images/loginbanner_plain.png" alt="Loginbanner" />
-    <div v-if="authStore.token">
+    <div v-if="authStore.isLoggedIn">
       <RouterLink to="/main" class="menu-item">Zum Spiel</RouterLink>
       <RouterLink to="/guide" class="menu-item">Anleitung</RouterLink>
       <RouterLink to="/forum" class="menu-item">Forum</RouterLink>

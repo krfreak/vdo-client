@@ -55,7 +55,7 @@ import { toast } from 'vue-sonner'
 
 const onSubmit = handleSubmit(async (values) => {
   await authStore.login(values.email, values.password)
-  if (authStore.token) {
+  if (authStore.isLoggedIn) {
     await userStore.getMe()
     toast('Erfolgreich eingeloggt!', {
       description: 'blablabla'
