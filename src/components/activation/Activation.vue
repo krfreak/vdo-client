@@ -148,35 +148,11 @@
 import { ref, onMounted, computed } from 'vue'
 import axios from 'axios'
 
-type Race = {
-  id: number
-  name: string
-  description: string
-  imageUri: string | null
-}
 
-type Hero = {
-  id: number
-  name: string
-  imageUri: string | null
-  race: Race
-  attackBonus: number
-  defenseBonus: number
-  healthBonus: number
-  speedBonus: number
-}
 
-type Nation = {
-  id: number
-  number: number,
-  name: string
-}
 
-type ActivationOptions = {
-  races: Race[]
-  heroes: Hero[]
-  nations: Nation[]
-}
+
+
 
 const baseUrl = import.meta.env.VITE_VDGO_BASE_URL;
 const activationOptions = ref<ActivationOptions | null>(null)
