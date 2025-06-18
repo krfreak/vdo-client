@@ -148,12 +148,6 @@
 import { ref, onMounted, computed } from 'vue'
 import axios from 'axios'
 
-
-
-
-
-
-
 const baseUrl = import.meta.env.VITE_VDGO_BASE_URL;
 const activationOptions = ref<ActivationOptions | null>(null)
 const selectedRaceId = ref<number | null>(null)
