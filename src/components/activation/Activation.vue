@@ -146,9 +146,8 @@
 </template>
 <script setup lang="ts">
 import { ref, onMounted, computed } from 'vue'
-import axios from 'axios'
+import { fetchFromApi } from '@/utils/fetch'
 
-const baseUrl = import.meta.env.VITE_VDGO_BASE_URL;
 const activationOptions = ref<ActivationOptions | null>(null)
 const selectedRaceId = ref<number | null>(null)
 const selectedHeroId = ref<number | null>(null)
@@ -156,13 +155,10 @@ const selectedNationId = ref<number | null>(null)
 const loading = ref(true)
 
 const heroesByRace = computed(() => {
-  if (
-    !activationOptions.value ||
-    !activationOptions.value.heroes ||
-    selectedRaceId.value === null
-  ) {
+  if (!activationOptions.value || !activationOptions.value.heroes || selectedRaceId.value === null) {
     return null
   }
+  
   return activationOptions.value.heroes.filter(
     hero => hero.race.id === selectedRaceId.value
   )
@@ -170,31 +166,9 @@ const heroesByRace = computed(() => {
 
 onMounted(async () => {
   loading.value = true
-  activationOptions.value = await fetchActivationOptions();
+  activationOptions.value = await fetchFromApi<ActivationOptions>('/rounds/active/activation-options')
   loading.value = false
 })
-
-async function fetchActivationOptions(): Promise<ActivationOptions | null> {
-  try {
-    const res = await axios.get(
-      `${baseUrl}/rounds/active/activation-options`,
-      {
-        withCredentials: true,
-        headers: {
-          Authorization: true
-        }
-      }
-    );
-
-    if (res.data) {
-      return res.data as ActivationOptions;
-    }
-  } catch (error) {
-    console.error(error)
-  }
-
-  return null
-}
 
 function formatBonusPercent(bonus: number): string {
   const percent = Math.round((bonus - 1) * 100);
@@ -214,31 +188,27 @@ function goBackToHeroSelection() {
 
 async function joinNation() {
   if (!selectedRaceId.value || !selectedHeroId.value || !selectedNationId.value) return;
+   
+  const body = {
+    race: {
+      id: selectedRaceId.value
+    },
+    hero: {
+      id: selectedHeroId.value
+    },
+    nation: {
+      id: selectedNationId.value
+    }
+  }
+
   try {
-    await axios.post(
-      `${baseUrl}/players`,
-      {
-        race: {
-          id: selectedRaceId.value
-        },
-        hero: {
-          id: selectedHeroId.value
-        },
-        nation: {
-          id: selectedNationId.value
-        }
-      },
-      {
-        withCredentials: true,
-        headers: {
-          Authorization: true
-        }
-      }
-    );
-    
-    location.reload();
+    await fetchFromApi<Player>('/players', {
+      method: 'POST',
+      body,
+    })
+    location.reload()
   } catch (error) {
-    console.error(error);
+    console.error('error creating player:', error)
   }
 }
 

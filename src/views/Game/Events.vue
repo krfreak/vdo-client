@@ -17,29 +17,15 @@
 
 <script setup lang="ts">
 import { ref, computed, onMounted } from 'vue'
-import axios from 'axios'
 import Activation from '@/components/activation/Activation.vue'
-
-type Round = {
-  id: number
-  createdAt: string
-  startedAt: string | null
-  finishedAt: string | null
-  active: boolean
-}
-
-type Player = {
-  id: number
-  name: string
-}
+import { fetchFromApi } from '@/utils/fetch'
 
 const round = ref<Round | null>(null)
 const player = ref<Player | null>(null)
-const baseUrl = import.meta.env.VITE_VDGO_BASE_URL;
 
 onMounted(async () => {
-  round.value = await fetchActiveRound()
-  player.value = await fetchPlayerForRound()
+  round.value  = await fetchFromApi<Round>('/rounds/active')
+  player.value  = await fetchFromApi<Player>('/players/active-round/me')
 })
 
 const state = computed(() => {
@@ -49,45 +35,4 @@ const state = computed(() => {
   return 'in-game'
 })
 
-async function fetchActiveRound(): Promise<Round | null> {
-  try {
-    const res = await axios.get(
-      `${baseUrl}/rounds/active`,
-      {
-        withCredentials: true,
-        headers: {
-          Authorization: true
-        }
-      }
-    );
-
-    if (res.data && res.data.Id) {
-      return res.data as Round;
-    }
-  } catch (error) {
-    console.error(error)
-  }
-  return null
-}
-async function fetchPlayerForRound(): Promise<Player | null> {
-  try {
-    const res = await axios.get(
-      `${baseUrl}/players/active-round/me`,
-      {
-        withCredentials: true,
-        headers: {
-          Authorization: true
-        }
-      }
-    );
-
-    console.log(res.data);
-    if (res.data && res.data.id) {
-      return res.data as Player;
-    }
-  } catch (error) {
-    console.error(error)
-  }
-  return null
-}
 </script>

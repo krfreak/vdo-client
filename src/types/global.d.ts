@@ -25,10 +25,23 @@ declare global {
         name: string
     }
 
+    interface Player {
+        id: number
+        name: string
+    }
+
     interface Race {
         id: number
         name: string
         description: string
         imageUri: string | null
-    }    
+    }
+    
+    interface Round {
+        id: number
+        createdAt: string
+        startedAt: string | null
+        finishedAt: string | null
+        active: boolean
+    }
 }
