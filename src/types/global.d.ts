@@ -22,12 +22,25 @@ declare global {
     interface Nation {
         id: number
         number: number,
-        name: string
+        name: string,
+        villages: number,
+        population: number,
+        countOfPlayers: number,
+        ritualPoints: number,
+        players: Player[]
     }
 
     interface Player {
         id: number
         name: string
+        countOfVillages: number
+        population: number
+        race: Race
+        hero: Hero
+        nation: Nation
+        quests: number
+        title: string
+        titlePoints: number
     }
 
     interface Race {
