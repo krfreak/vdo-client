@@ -26,10 +26,6 @@ export const useAuthStore = defineStore('auth',{
         .then((res) => {
           localStorage.setItem('isLoggedIn', 'true');
           this.isLoggedIn = true;
-          console.log(res);
-        })
-        .catch((error) => {
-          console.error(error)
         })
     },
     async logout() {
@@ -43,13 +39,9 @@ export const useAuthStore = defineStore('auth',{
         )
         .then((res) => {
           localStorage.removeItem('isLoggedIn');
+          localStorage.removeItem('me');
           this.isLoggedIn = false;
-      
-          console.log(res);
         })
-        .catch((error) => {
-          console.error(error)
-        })
-    }
+     }
   }
 })

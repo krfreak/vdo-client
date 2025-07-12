@@ -3,7 +3,17 @@ import { defineStore } from 'pinia';
 
 export const useUserStore = defineStore('user', {
   state: () => ({
-    me: null,
+    me: (() => {
+      const stored = localStorage.getItem('me');
+      if (stored) {
+        try {
+          return JSON.parse(stored);
+        } catch {
+          return { uuid: null, player: null };
+        }
+      }
+      return { uuid: null, player: null };
+    })(),
   }),
   actions: {
     async getMe() {
@@ -15,12 +25,10 @@ export const useUserStore = defineStore('user', {
         }
       )
       .then((res) => {
-        this.me = res.data.id;
-        console.log(res);
+        this.me.uuid = res.data.id;
+        this.me.player = res.data.player;
+        localStorage.setItem('me', JSON.stringify(this.me));console.log(Number(res.data.layer.nation.leader.id) === Number(res.data.player.id))
       })
-      .catch((error) => {
-        console.error(error);
-      });
     },
   },
 });

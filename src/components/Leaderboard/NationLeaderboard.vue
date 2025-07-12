@@ -37,8 +37,12 @@
             <tbody>
             <tr v-for="(nation, index) in sortedNations" :key="nation.id">
                 <td class="p-2 border">{{ index + 1 }}</td>
-                <td v-if="nation.name" class="p-2 border">{{ nation.name }} #{{ nation.number }} </td>
-                <td v-else class="p-2 border">Nation #{{ nation.number }}</td>
+                <td class="p-2 border underline"
+                  :class="{ 'text-orange-500': userStore.me?.player?.nation?.id === nation.id }">
+                  <router-link :to="`/nation/${nation.number}`">
+                  {{ nation.name ? nation.name + ' #' + nation.number : 'Nation #' + nation.number }}
+                  </router-link>
+                </td>
                 <td class="p-2 border">{{ nation.villages }}</td>
                 <td class="p-2 border">{{ nation.population }}</td>
                 <td class="p-2 border">{{ nation.countOfPlayers }}</td>
@@ -52,7 +56,9 @@
 <script setup lang="ts">
 import { ref, onMounted, computed } from 'vue'
 import { fetchFromApi } from '@/utils/fetch'
+import { useUserStore } from '@/stores/user'
 
+const userStore = useUserStore()
 const nations = ref<Nation[]>([])
 const loading = ref(true)
 

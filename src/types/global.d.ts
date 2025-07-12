@@ -22,12 +22,25 @@ declare global {
     interface Nation {
         id: number
         number: number,
-        name: string,
+        name: string | null,
         villages: number,
         population: number,
         countOfPlayers: number,
         ritualPoints: number,
         players: Player[]
+        leader: Player | null
+        viceLeader: Player | null
+        leaderMessage: string
+        diplomacyMessage: string
+        description: string
+        imageUri: string | null
+    }
+
+    interface LeaderVoting {
+        id: number | null
+        voteBy: number
+        voteFor: number
+        nationId: number
     }
 
     interface Player {

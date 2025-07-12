@@ -27,6 +27,9 @@
               <RouterLink class="nav-link" to="/nation">Übersicht</RouterLink>
             </SidebarMenuButton>
             <SidebarMenuButton as-child>
+              <RouterLink class="nav-link" to="/voting">Abstimmen</RouterLink>
+            </SidebarMenuButton>
+            <SidebarMenuButton as-child>
               <RouterLink class="nav-link" to="/nationforum">Nationsforum</RouterLink>
             </SidebarMenuButton>
             <SidebarMenuButton as-child>
@@ -35,8 +38,8 @@
             <SidebarMenuButton as-child>
               <RouterLink class="nav-link" to="/diplomacy">Diplomatie</RouterLink>
             </SidebarMenuButton>
-            <SidebarMenuButton as-child>
-              <RouterLink class="nav-link" to="/management">Management</RouterLink>
+            <SidebarMenuButton v-if="isLeader" as-child>
+              <RouterLink class="nav-link" to="/leader">Herrscher Optionen</RouterLink>
             </SidebarMenuButton>
           </SidebarMenu>
         </SidebarGroupContent>
@@ -132,8 +135,8 @@
 </template>
 
 <script setup lang="ts">
-import { computed, ref } from 'vue'
-import { useAuthStore } from '@/stores/auth'
+import { computed, onMounted, onUnmounted, ref } from 'vue'
+import { useUserStore } from '@/stores/user'
 import { RouterLink } from 'vue-router'
 import { FormField, FormItem, FormLabel, FormControl, FormMessage } from '@/components/ui/form'
 import { Input } from '@/components/ui/input'
@@ -150,8 +153,30 @@ import {
 import SidebarGroupLabel from '../ui/sidebar/SidebarGroupLabel.vue'
 import SidebarMenu from '../ui/sidebar/SidebarMenu.vue'
 
-const authStore = useAuthStore()
-const unfoldable = ref(true)
-const visible = ref(true)
-const overlaid = ref(true)
+const userStore = useUserStore()
+
+import { fetchFromApi } from '@/utils/fetch'
+
+
+const nation = ref<Nation | null>(null)
+
+async function loadNation() {
+  const nationParam = userStore.me?.player?.nation?.id
+  if (nationParam) {
+    nation.value = await fetchFromApi<Nation>(`/nations/${nationParam}`)
+  }
+}
+
+onMounted(() => {
+  loadNation()
+  window.addEventListener('reload-nation', loadNation)
+})
+
+onUnmounted(() => {
+  window.removeEventListener('reload-nation', loadNation)
+})
+
+const isLeader = computed(() => {
+  return nation.value?.leader?.id === userStore.me?.player?.id
+})
 </script>

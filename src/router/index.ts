@@ -29,7 +29,7 @@ const router = createRouter({
     {
       path: '/diplomacy',
       name: 'diplomacy',
-      component: () => import('../views/Game/Group/Diplomacy.vue')
+      component: () => import('../views/Game/Nation/Diplomacy.vue')
     },
     {
       path: '/events',
@@ -57,9 +57,9 @@ const router = createRouter({
       component: () => import('../views/Messaging.vue')
     },
     {
-      path: '/nation',
+      path: '/nation/:nationId?',
       name: 'nation',
-      component: () => import('../views/Game/Group/Group.vue')
+      component: () => import('../views/Game/Nation/Nation.vue')
     },
     {
       path: '/recruiting',
@@ -67,14 +67,19 @@ const router = createRouter({
       component: () => import('../views/Game/Army/Recruiting.vue')
     },
     {
-      path: '/management',
-      name: 'management',
-      component: () => import('../views/Game/Group/Management.vue')
+      path: '/leader',
+      name: 'leader',
+      component: () => import('../views/Game/Nation/Leader.vue')
     },
     {
       path: '/supplies',
       name: 'supplies',
-      component: () => import('../views/Game/Group/Supplies.vue')
+      component: () => import('../views/Game/Nation/Supplies.vue')
+    },
+    {
+      path: '/voting',
+      name: 'voting',
+      component: () => import('../views/Game/Nation/Voting.vue')
     },
     {
       path: '/hero',
